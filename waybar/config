@@ -1,0 +1,97 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "modules-left": [
+        "hyprland/workspaces",
+        "custom/launcher"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "network",
+        "bluetooth",
+        "pulseaudio",
+        "backlight",
+	"memory",
+	"custom/cpu-temp",
+        "custom/gpu-temp",
+        "tray"
+    ],
+
+    // Configuración de cada módulo
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1", "2": "2", "3": "3", "4": "4", "5": "5",
+            "urgent": "", "focused": "", "default": ""
+        },
+        "all-outputs": false,
+        "persistent-workspaces": {
+            "1": [], "2": [], "3": [], "4": [], "5": []
+        }
+    },
+    "clock": {
+        "format": "{:%H:%M  %d/%m/%Y}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+	"timezone": "America/Argentina/Buenos_Aires",
+    },
+    "network": {
+        "format-wifi": "  {ipaddr} ({signalStrength}%)",
+        "format-ethernet": "{ipaddr}",
+        "format-disconnected": "❌ Desconectado",
+        "tooltip-format": "{ifname}: {ipaddr} via {gwaddr}"
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "format-icons": {
+            "on": "",  // Icono cuando el Bluetooth está encendido pero sin dispositivos
+            "off": "", // Icono cuando el Bluetooth está apagado
+            "connected": "" // Icono cuando un dispositivo está conectado
+        },
+        "on-click": "blueman-manager",
+        "on-click-right": "blueman-manager"
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-icons": {
+	    "default": "",
+        },
+	"on-click": "exec pavucontrol-qt"
+    },
+    "backlight": {
+        "device": "intel_backlight",  // Cambia esto si no funciona (prueba "amdgpu_bl0")
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl s +5%",
+        "on-scroll-down": "brightnessctl s 5%-",
+        "smooth-scrolling-threshold": 1
+    },
+    "custom/gpu-temp": {
+        "exec": "~/.config/waybar/scripts/gpu-temp.sh",
+        "interval": 2,
+	"format": " {}",
+        "tooltip": false
+    },
+    "custom/cpu-temp": {
+    	"exec": "~/.config/waybar/scripts/cpu-temp.sh",
+    	"interval": 2,
+    	"format": " {}",
+    	"tooltip": false
+    },
+    "memory": {
+	"exec": "~/.config/waybar/scripts/ram-usage.sh",
+    	"format": " {used}G/{total}G",
+    	"tooltip-format": "{used}G / {total}G ({percentage}%)",
+    	"interval": 2,
+    	"on-click": "cycle"
+},
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    }
+}

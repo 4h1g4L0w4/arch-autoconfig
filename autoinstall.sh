@@ -95,6 +95,7 @@ PAC_PKGS=(
     fish
     fastfetch
     hyprlauncher
+    hyprpaper
 )
 
 # Paquetes del AUR (se instalan con yay)
@@ -145,6 +146,8 @@ if [ ! -f "$USER_HOME/.config/hypr/hyprland.conf" ]; then
     info "Copiando configuración por defecto de Hyprland..."
     cp /usr/share/hypr/hyprland.conf "$USER_HOME/.config/hypr/hyprland.conf"
     chown "$REAL_USER:$REAL_USER" "$USER_HOME/.config/hypr/hyprland.conf"
+    cp /usr/share/hypr/hyprpaper.conf "$USER_HOME/.config/hypr/hyprpaper.conf"
+    chown "$REAL_USER:$REAL_USER" "$USER_HOME/.config/hypr/hyprpaper.conf"
 else
     warn "El archivo hyprland.conf ya existe, no se sobrescribe."
 fi

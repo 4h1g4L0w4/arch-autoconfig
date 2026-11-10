@@ -66,7 +66,7 @@ sudo ./autoinstall.sh
 
 ## Personalizacion
 
-- Edita `hypr/hyprland.conf` para keybinds, layout y animaciones.
+- Edita `hypr/hyprland.lua` para keybinds, layout y animaciones (Hyprland 0.57+ usa config Lua).
 - Ajusta `waybar/` para modulos y estilo visual.
 - Modifica `kitty/kitty.conf` para fuente/tema.
 - Personaliza prompt con `tide configure`.

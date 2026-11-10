@@ -18,6 +18,7 @@
 	"memory",
 	"custom/cpu-temp",
         "custom/gpu-temp",
+        "battery",
         "tray"
     ],
 
@@ -41,10 +42,19 @@
 	"timezone": "America/Argentina/Buenos_Aires",
     },
     "network": {
-        "format-wifi": "  {ipaddr} ({signalStrength}%)",
-        "format-ethernet": "{ipaddr}",
-        "format-disconnected": "❌ Desconectado",
-        "tooltip-format": "{ifname}: {ipaddr} via {gwaddr}"
+        "format-wifi": "{icon} {essid} {signalStrength}%",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰤮 Desconectado",
+        "tooltip-format": "{ifname}: {ipaddr}\nRed: {essid}\nSeñal: {signalStrength}%",
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "on-click": "kitty -e nmtui",
+        "on-click-right": "kitty -e nmtui"
     },
     "bluetooth": {
         "format": "{icon}",
@@ -57,11 +67,15 @@
         "on-click-right": "blueman-manager"
     },
     "pulseaudio": {
-        "format": "{icon}",
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟",
         "format-icons": {
-	    "default": "",
+            "default": "",
+            "muted": "󰝟"
         },
-	"on-click": "exec pavucontrol-qt"
+        "on-click": "exec pavucontrol-qt",
+        "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     },
     "backlight": {
         "device": "intel_backlight",  // Cambia esto si no funciona (prueba "amdgpu_bl0")
@@ -93,5 +107,43 @@
     "tray": {
         "icon-size": 18,
         "spacing": 10
+    },
+    "battery": {
+        "bat": "BAT1",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "{icon} {capacity}%",
+        "format-plugged": "{icon} {capacity}%",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "format-charging-icons": [
+            "󰂎",
+            "󰢜",
+            "󰂆",
+            "󰂇",
+            "󰂈",
+            "󰢝",
+            "󰂉",
+            "󰢞",
+            "󰂊",
+            "󰂋",
+            "󰂅"
+        ],
+        "tooltip-format": "{timeTo} {capacity}% ({power} W)",
+        "interval": 30
     }
 }

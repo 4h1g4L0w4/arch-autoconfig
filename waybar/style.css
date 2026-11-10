@@ -6,6 +6,28 @@
     min-height: 0;
 }
 
+/* Catppuccin Mocha palette */
+@define-color base       #1e1e2e;
+@define-color mantle     #181825;
+@define-color crust      #11111b;
+@define-color surface0   #313244;
+@define-color surface1   #45475a;
+@define-color surface2   #585b70;
+@define-color text       #cdd6f4;
+@define-color subtext    #a6adc8;
+@define-color overlay0   #6c7086;
+@define-color mauve      #cba6f7;
+@define-color blue       #89b4fa;
+@define-color sapphire   #74c7ec;
+@define-color green      #a6e3a1;
+@define-color yellow     #f9e2af;
+@define-color peach      #fab387;
+@define-color red        #f38ba8;
+@define-color lavender   #b4befe;
+@define-color teal       #94e2d5;
+@define-color sky        #89dceb;
+@define-color rosewater  #f5e0dc;
+
 /* Barra completamente transparente, sin bordes ni sombras */
 window#waybar {
     background: transparent;
@@ -24,14 +46,15 @@ window#waybar {
 #custom-gpu-temp,
 #custom-cpu-temp,
 #memory,
+#battery,
 #tray {
-    background: rgba(20, 20, 30, 0.6);
-    color: #ffffff;
+    background: alpha(@surface0, 0.65);
+    color: @text;
     border-radius: 12px;
     padding: 0 14px;
     margin: 4px 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.2s ease;
+    border: 1px solid alpha(@surface1, 0.6);
+    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 /* Efecto hover para todas las islas */
@@ -44,32 +67,103 @@ window#waybar {
 #custom-cpu-temp:hover,
 #custom-gpu-temp:hover,
 #memory:hover,
+#battery:hover,
 #tray:hover {
-    background: rgba(40, 40, 55, 0.7);
+    background: alpha(@surface1, 0.75);
+    border-color: alpha(@mauve, 0.5);
 }
 
 /* Botones de workspaces dentro de su isla */
 #workspaces button {
     background: transparent;
-    color: inherit;
+    color: @subtext;
     border-radius: 8px;
     padding: 3px 10px;
     margin: 3px 2px;
     transition: all 0.2s;
 }
 
+#workspaces button:hover {
+    color: @text;
+}
+
 #workspaces button.active {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    background: alpha(@mauve, 0.25);
+    color: @text;
+    box-shadow: 0 0 5px alpha(@mauve, 0.2);
 }
 
 #workspaces button.urgent {
-    background: #eb4d4b;
-    color: #fff;
+    background: alpha(@red, 0.4);
+    color: @text;
 }
 
-/* Icono de mute en pulseaudio */
+/* Reloj */
+#clock {
+    color: @lavender;
+}
+
+/* Red WiFi / Ethernet */
+#network {
+    color: @sapphire;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+/* Bluetooth */
+#bluetooth {
+    color: @blue;
+}
+
+/* Audio */
+#pulseaudio {
+    color: @teal;
+}
+
 #pulseaudio.muted {
-    background: rgba(255, 0, 0, 0.2);
-    color: #ff6666;
+    background: alpha(@red, 0.3);
+    color: @red;
+}
+
+/* Brillo */
+#backlight {
+    color: @yellow;
+}
+
+/* Temperaturas */
+#custom-cpu-temp {
+    color: @peach;
+}
+
+#custom-gpu-temp {
+    color: @green;
+}
+
+/* Memoria */
+#memory {
+    color: @rosewater;
+}
+
+/* Batería */
+#battery {
+    color: @green;
+}
+
+#battery.charging {
+    color: @teal;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+/* Bandeja */
+#tray {
+    color: @text;
 }

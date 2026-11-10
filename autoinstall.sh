@@ -96,11 +96,20 @@ PAC_PKGS=(
     fastfetch
     hyprlauncher
     hyprpaper
+    hypridle
+    hyprlock
+    dunst
+    grim
+    slurp
+    swappy
+    wl-clipboard
+    jq
+    playerctl
 )
 
 # Paquetes del AUR (se instalan con yay)
 AUR_PKGS=(
-    # (No hay ninguno específico en tu lista, pero puedes agregar aquí si es necesario)
+    mcontrolcenter
 )
 
 # Instalar paquetes oficiales
@@ -134,6 +143,9 @@ sudo -u "$REAL_USER" mkdir -p "$USER_HOME/.config"
 for dir in "$SCRIPT_DIR"/*/; do
     [ -d "$dir" ] || continue
     DIR_NAME=$(basename "$dir")
+    case "$DIR_NAME" in
+        assets|yay) continue ;;
+    esac
     TARGET_DIR="$USER_HOME/.config/$DIR_NAME"
     info "Copiando $DIR_NAME -> $TARGET_DIR"
     mkdir -p "$TARGET_DIR"
@@ -142,14 +154,16 @@ for dir in "$SCRIPT_DIR"/*/; do
 done
 
 # Copiar configuración por defecto de Hyprland solo si no existe
-if [ ! -f "$USER_HOME/.config/hypr/hyprland.conf" ]; then
+if [ ! -f "$USER_HOME/.config/hypr/hyprland.lua" ]; then
     info "Copiando configuración por defecto de Hyprland..."
-    cp /usr/share/hypr/hyprland.conf "$USER_HOME/.config/hypr/hyprland.conf"
-    chown "$REAL_USER:$REAL_USER" "$USER_HOME/.config/hypr/hyprland.conf"
-    cp /usr/share/hypr/hyprpaper.conf "$USER_HOME/.config/hypr/hyprpaper.conf"
-    chown "$REAL_USER:$REAL_USER" "$USER_HOME/.config/hypr/hyprpaper.conf"
+    cp /usr/share/hypr/hyprland.lua "$USER_HOME/.config/hypr/hyprland.lua"
+    chown "$REAL_USER:$REAL_USER" "$USER_HOME/.config/hypr/hyprland.lua"
+    if [ -f /usr/share/hypr/hyprpaper.conf ]; then
+        cp /usr/share/hypr/hyprpaper.conf "$USER_HOME/.config/hypr/hyprpaper.conf"
+        chown "$REAL_USER:$REAL_USER" "$USER_HOME/.config/hypr/hyprpaper.conf"
+    fi
 else
-    warn "El archivo hyprland.conf ya existe, no se sobrescribe."
+    warn "El archivo hyprland.lua ya existe, no se sobrescribe."
 fi
 
 # --- 8. Configurar Fish como shell por defecto ---
@@ -184,4 +198,4 @@ echo "------------------------------------------------------------------------"
 echo "Recomendaciones:"
 echo "1. Reinicia el sistema para que todos los cambios surtan efecto (sudo reboot)."
 echo "2. Después de reiniciar, ejecuta 'tide configure' para personalizar el prompt de fish."
-echo "3. Personaliza el archivo ~/.config/hypr/hyprland.conf según tus necesidades."
+echo "3. Personaliza el archivo ~/.config/hypr/hyprland.lua según tus necesidades."
